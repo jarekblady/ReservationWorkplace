@@ -1,7 +1,17 @@
+
+using Microsoft.EntityFrameworkCore;
+using ReservationWorkplace.Entities;
+using ReservationWorkplace.Repositories.ReservationRepository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
+builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
+
+builder.Services.AddDbContext<ReservationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WorkplaceConnectionString")));
 
 var app = builder.Build();
 
