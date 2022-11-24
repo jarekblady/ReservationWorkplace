@@ -1,17 +1,25 @@
 
 using Microsoft.EntityFrameworkCore;
 using ReservationWorkplace.Entities;
+using ReservationWorkplace.Repositories.EmployeeRepository;
+using ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository;
+using ReservationWorkplace.Repositories.EquipmentRepository;
 using ReservationWorkplace.Repositories.ReservationRepository;
+using ReservationWorkplace.Repositories.WorkplaceRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
-builder.Services.AddTransient<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddDbContext<ReservationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WorkplaceConnectionString")));
+
+//Repositories
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IEquipmentForWorkplaceRepository, EquipmentForWorkplaceRepository>();
+builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
 
 var app = builder.Build();
 
