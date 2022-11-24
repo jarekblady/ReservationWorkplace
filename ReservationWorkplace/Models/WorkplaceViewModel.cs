@@ -1,4 +1,6 @@
-﻿namespace ReservationWorkplace.Models
+﻿using ReservationWorkplace.Entities;
+
+namespace ReservationWorkplace.Models
 {
     public class WorkplaceViewModel
     {
@@ -6,5 +8,7 @@
         public int Floor { get; set; }
         public int Room { get; set; }
         public int Table { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
+        public ICollection<EquipmentForWorkplace> EquipmentForWorkplaces { get; set; }
     }
 }

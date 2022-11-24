@@ -6,6 +6,10 @@ using ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository;
 using ReservationWorkplace.Repositories.EquipmentRepository;
 using ReservationWorkplace.Repositories.ReservationRepository;
 using ReservationWorkplace.Repositories.WorkplaceRepository;
+using ReservationWorkplace.Services.EmployeeService;
+using ReservationWorkplace.Services.EquipmentService;
+using ReservationWorkplace.Services.ReservationService;
+using ReservationWorkplace.Services.WorkplaceService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +22,16 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 //Repositories
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IEquipmentForWorkplaceRepository, EquipmentForWorkplaceRepository>();
-builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
+builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
+builder.Services.AddScoped<IEquipmentForWorkplaceRepository, EquipmentForWorkplaceRepository>();
+
+//Services
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
+builder.Services.AddScoped<IWorkplaceService, WorkplaceService>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 
 var app = builder.Build();
 

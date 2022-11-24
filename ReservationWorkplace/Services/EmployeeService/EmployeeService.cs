@@ -37,7 +37,7 @@ namespace ReservationWorkplace.Services.EmployeeService
             var employee = new Employee()
             {
                 FirstName = model.FirstName,
-                LastName = model.LastName,
+                LastName = model.LastName
             };
             _employeeRepository.CreateEmployee(employee);
         }
@@ -47,7 +47,7 @@ namespace ReservationWorkplace.Services.EmployeeService
             var employee = new Employee()
             {
                 FirstName = model.FirstName,
-                LastName = model.LastName,
+                LastName = model.LastName
             };
             _employeeRepository.UpdateEmployee(employee);
         }

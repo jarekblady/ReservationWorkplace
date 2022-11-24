@@ -5,7 +5,7 @@ using ReservationWorkplace.Repositories.ReservationRepository;
 
 namespace ReservationWorkplace.Services.ReservationService
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
         private readonly IReservationRepository _reservationRepository;
         private readonly IMapper _mapper;
