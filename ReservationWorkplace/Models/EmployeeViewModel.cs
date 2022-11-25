@@ -1,10 +1,14 @@
-﻿namespace ReservationWorkplace.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ReservationWorkplace.Models
 {
     public class EmployeeViewModel
     {
         public int Id { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
         public ICollection<ReservationViewModel> Reservations { get; set; }
     }
 }

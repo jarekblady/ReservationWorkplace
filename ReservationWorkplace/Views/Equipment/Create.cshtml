@@ -1,0 +1,28 @@
+﻿@model ReservationWorkplace.Models.EquipmentViewModel
+
+@{
+    ViewData["Title"] = "Add Equipment";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+
+            <div class="form-group">
+                <label asp-for="Type" class="control-label">Type</label>
+                <input asp-for="Type" class="form-control" />
+
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

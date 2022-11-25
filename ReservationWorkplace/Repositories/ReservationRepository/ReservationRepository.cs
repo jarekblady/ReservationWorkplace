@@ -1,4 +1,5 @@
-﻿using ReservationWorkplace.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ReservationWorkplace.Entities;
 
 namespace ReservationWorkplace.Repositories.ReservationRepository
 {
@@ -11,18 +12,17 @@ namespace ReservationWorkplace.Repositories.ReservationRepository
             _context = context;
         }
 
-
-
-        public List<Reservation> ReservationGetAll(int employeeId)
+        public List<Reservation> ReservationGetAll()
         {
 
-            return _context.Reservations.Where(r => r.EmployeeId == employeeId).ToList();
+            return _context.Reservations.Include(e => e.Employee).Include(w => w.Workplace).ToList();
         }
 
-        public Reservation ReservationGetById(int employeeId, int id)
+        public Reservation ReservationGetById(int id)
         {
-            return _context.Reservations.Where(r => r.EmployeeId == employeeId).FirstOrDefault(r => r.Id == id);
+            return _context.Reservations.Include(e => e.Employee).Include(w => w.Workplace).FirstOrDefault(r => r.Id == id);
         }
+
 
         public void CreateReservation(Reservation reservation)
         {

@@ -11,8 +11,6 @@ namespace ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository
             _context = context;
         }
 
-
-
         public List<EquipmentForWorkplace> EquipmentForWorkplaceGetAll()
         {
 

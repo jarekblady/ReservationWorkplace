@@ -37,7 +37,7 @@ namespace ReservationWorkplace.Services.WorkplaceService
         public void CreateWorkplace(WorkplaceDto dto)
         {
             var workplace = new Workplace()
-            {
+            {            
                 Floor = dto.Floor,
                 Room = dto.Room,
                 Table = dto.Table,
@@ -49,6 +49,7 @@ namespace ReservationWorkplace.Services.WorkplaceService
         {
             var workplace = new Workplace()
             {
+                Id = dto.Id,
                 Floor = dto.Floor,
                 Room = dto.Room,
                 Table = dto.Table,

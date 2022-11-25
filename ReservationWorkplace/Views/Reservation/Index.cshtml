@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ReservationWorkplace.Models.ReservationViewModel>
+
+@{
+    ViewData["Title"] = "Reservations";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Time From
+            </th>
+            <th>
+                Time To
+            </th>
+            <th>
+                Floor
+            </th>
+            <th>
+                Room
+            </th>
+            <th>
+                Table
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-success btn-sm">Create New</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeFrom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Workplace.Floor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Workplace.Room)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Workplace.Table)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+

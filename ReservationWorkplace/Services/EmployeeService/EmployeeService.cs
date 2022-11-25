@@ -46,6 +46,7 @@ namespace ReservationWorkplace.Services.EmployeeService
         {
             var employee = new Employee()
             {
+                Id = dto.Id,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName
             };

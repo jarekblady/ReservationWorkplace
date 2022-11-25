@@ -32,24 +32,31 @@ namespace ReservationWorkplace.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeViewModel model)
         {
+
             var dto = _mapper.Map<EmployeeDto>(model);
             _employeeService.CreateEmployee(dto);
 
             return RedirectToAction("Index");
 
+
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_employeeService.GetByIdEmployee(id));
+            var dto = _employeeService.GetByIdEmployee(id);
+            var viewModel = _mapper.Map<EmployeeViewModel>(dto);
+
+            return View(viewModel);
         }
         [HttpPost]
         public async Task<IActionResult> Edit(EmployeeViewModel model)
         {
+
             var dto = _mapper.Map<EmployeeDto>(model);
             _employeeService.UpdateEmployee(dto);
 
             return RedirectToAction("Index");
+
         }
 
         [HttpGet]
@@ -57,6 +64,10 @@ namespace ReservationWorkplace.Controllers
         {
             _employeeService.DeleteEmployee(id);
             return RedirectToAction("Index");
+        }
+        public IActionResult Privacy()
+        {
+            return View();
         }
     }
 }

@@ -45,6 +45,7 @@ namespace ReservationWorkplace.Services.EquipmentService
         {
             var equipment = new Equipment()
             {
+                Id = dto.Id,
                 Type = dto.Type
             };
             _equipmentRepository.UpdateEquipment(equipment); ;

@@ -47,11 +47,12 @@ namespace ReservationWorkplace.Services.EquipmentForWorkplaceService
         {
             var equipmentForWorkplace = new EquipmentForWorkplace()
             {
+                Id = dto.Id,
                 Count = dto.Count,
                 WorkplaceId = dto.WorkplaceId,
                 EquipmentId = dto.EquipmentId
             };
-            _equipmentForWorkplaceRepository.UpdateEquipmentForWorkplace(equipmentForWorkplace); ;
+            _equipmentForWorkplaceRepository.UpdateEquipmentForWorkplace(equipmentForWorkplace); 
         }
 
         public void DeleteEquipmentForWorkplace(int id)

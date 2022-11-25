@@ -1,4 +1,6 @@
-﻿namespace ReservationWorkplace.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ReservationWorkplace.Models
 {
     public class EquipmentForWorkplaceViewModel
     {

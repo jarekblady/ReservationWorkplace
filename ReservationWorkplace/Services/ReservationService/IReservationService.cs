@@ -4,10 +4,10 @@ namespace ReservationWorkplace.Services.ReservationService
 {
     public interface IReservationService
     {
-        List<ReservationDto> GetAllReservation(int employeeId);
-        ReservationDto GetByIdReservation(int employeeId, int id);
+        List<ReservationDto> GetAllReservation();
+        ReservationDto GetByIdReservation(int id);
         void CreateReservation(ReservationDto dto);
         void UpdateReservation(ReservationDto dto);
-        void DeleteReservation(int employeeId, int id);
+        void DeleteReservation(int id);
     }
 }

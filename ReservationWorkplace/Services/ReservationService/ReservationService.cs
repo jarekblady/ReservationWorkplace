@@ -17,16 +17,16 @@ namespace ReservationWorkplace.Services.ReservationService
         }
 
 
-        public List<ReservationDto> GetAllReservation(int employeeId)
+        public List<ReservationDto> GetAllReservation()
         {
-            var reservations = _reservationRepository.ReservationGetAll(employeeId);
+            var reservations = _reservationRepository.ReservationGetAll();
             var result = _mapper.Map<List<ReservationDto>>(reservations);
             return result;
         }
 
-        public ReservationDto GetByIdReservation(int employeeId, int id)
+        public ReservationDto GetByIdReservation(int id)
         {
-            var reservation = _reservationRepository.ReservationGetById(employeeId, id);
+            var reservation = _reservationRepository.ReservationGetById(id);
             var result = _mapper.Map<ReservationDto>(reservation);
             return result;
         }
@@ -36,10 +36,10 @@ namespace ReservationWorkplace.Services.ReservationService
         {
             var reservation = new Reservation()
             {
-                EmployeeId = dto.EmployeeId,
-                WorkplaceId = dto.WorkplaceId,
                 TimeFrom = dto.TimeFrom,
-                TimeTo = dto.TimeTo
+                TimeTo = dto.TimeTo,
+                EmployeeId = dto.EmployeeId,
+                WorkplaceId = dto.WorkplaceId
             };
             _reservationRepository.CreateReservation(reservation);
         }
@@ -48,17 +48,18 @@ namespace ReservationWorkplace.Services.ReservationService
         {
             var reservation = new Reservation()
             {
-                EmployeeId = dto.EmployeeId,
-                WorkplaceId = dto.WorkplaceId,
+                Id = dto.Id,
                 TimeFrom = dto.TimeFrom,
-                TimeTo = dto.TimeTo
+                TimeTo = dto.TimeTo,
+                EmployeeId = dto.EmployeeId,
+                WorkplaceId = dto.WorkplaceId
             };
             _reservationRepository.UpdateReservation(reservation);
         }
 
-        public void DeleteReservation(int employeeId, int id)
+        public void DeleteReservation(int id)
         {
-            var reservation = _reservationRepository.ReservationGetById(employeeId, id);
+            var reservation = _reservationRepository.ReservationGetById(id);
             _reservationRepository.DeleteReservation(reservation);
         }
     }

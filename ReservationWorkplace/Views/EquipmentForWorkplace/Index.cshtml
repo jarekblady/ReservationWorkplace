@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ReservationWorkplace.Models.EquipmentForWorkplaceViewModel>
+
+@{
+    ViewData["Title"] = "EquipmentForWorkplaces";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                WorkplaceId
+            </th>
+            <th>
+                EquipmentId
+            </th>
+            <th>
+                Count
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-success btn-sm">Create New</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkplaceId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EquipmentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Count)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> 
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
