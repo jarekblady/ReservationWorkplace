@@ -1,13 +1,13 @@
-﻿using ReservationWorkplace.Models;
+﻿using ReservationWorkplace.DataTransferObjects;
 
 namespace ReservationWorkplace.Services.EmployeeService
 {
     public interface IEmployeeService
     {
-        List<EmployeeViewModel> GetAllEmployee();
-        EmployeeViewModel GetByIdEmployee(int id);
-        void CreateEmployee(EmployeeViewModel model);
-        void UpdateEmployee(EmployeeViewModel model);
+        List<EmployeeDto> GetAllEmployee();
+        EmployeeDto GetByIdEmployee(int id);
+        void CreateEmployee(EmployeeDto dto);
+        void UpdateEmployee(EmployeeDto dto);
         void DeleteEmployee(int id);
     }
 }

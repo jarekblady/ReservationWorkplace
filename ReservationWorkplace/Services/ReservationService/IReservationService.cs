@@ -1,13 +1,13 @@
-﻿using ReservationWorkplace.Models;
+﻿using ReservationWorkplace.DataTransferObjects;
 
 namespace ReservationWorkplace.Services.ReservationService
 {
     public interface IReservationService
     {
-        List<ReservationViewModel> GetAllReservation(int employeeId);
-        ReservationViewModel GetByIdReservation(int employeeId, int id);
-        void CreateReservation(ReservationViewModel model);
-        void UpdateReservation(ReservationViewModel model);
+        List<ReservationDto> GetAllReservation(int employeeId);
+        ReservationDto GetByIdReservation(int employeeId, int id);
+        void CreateReservation(ReservationDto dto);
+        void UpdateReservation(ReservationDto dto);
         void DeleteReservation(int employeeId, int id);
     }
 }

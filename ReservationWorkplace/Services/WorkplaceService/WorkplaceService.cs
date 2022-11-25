@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Entities;
-using ReservationWorkplace.Models;
 using ReservationWorkplace.Repositories.WorkplaceRepository;
 
 namespace ReservationWorkplace.Services.WorkplaceService
@@ -19,39 +19,39 @@ namespace ReservationWorkplace.Services.WorkplaceService
         }
 
 
-        public List<WorkplaceViewModel> GetAllWorkplace()
+        public List<WorkplaceDto> GetAllWorkplace()
         {
             var workplaces = _workplaceRepository.WorkplaceGetAll();
-            var result = _mapper.Map<List<WorkplaceViewModel>>(workplaces);
+            var result = _mapper.Map<List<WorkplaceDto>>(workplaces);
             return result;
         }
 
-        public WorkplaceViewModel GetByIdWorkplace(int id)
+        public WorkplaceDto GetByIdWorkplace(int id)
         {
             var workplace = _workplaceRepository.WorkplaceGetById(id);
-            var result = _mapper.Map<WorkplaceViewModel>(workplace);
+            var result = _mapper.Map<WorkplaceDto>(workplace);
             return result;
         }
 
 
-        public void CreateWorkplace(WorkplaceViewModel model)
+        public void CreateWorkplace(WorkplaceDto dto)
         {
             var workplace = new Workplace()
             {
-                Floor = model.Floor,
-                Room = model.Room,
-                Table = model.Table,
+                Floor = dto.Floor,
+                Room = dto.Room,
+                Table = dto.Table,
             };
             _workplaceRepository.CreateWorkplace(workplace);
         }
 
-        public void UpdateWorkplace(WorkplaceViewModel model)
+        public void UpdateWorkplace(WorkplaceDto dto)
         {
             var workplace = new Workplace()
             {
-                Floor = model.Floor,
-                Room = model.Room,
-                Table = model.Table,
+                Floor = dto.Floor,
+                Room = dto.Room,
+                Table = dto.Table,
             };
             _workplaceRepository.UpdateWorkplace(workplace);
         }

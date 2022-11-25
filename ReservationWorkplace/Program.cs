@@ -7,6 +7,7 @@ using ReservationWorkplace.Repositories.EquipmentRepository;
 using ReservationWorkplace.Repositories.ReservationRepository;
 using ReservationWorkplace.Repositories.WorkplaceRepository;
 using ReservationWorkplace.Services.EmployeeService;
+using ReservationWorkplace.Services.EquipmentForWorkplaceService;
 using ReservationWorkplace.Services.EquipmentService;
 using ReservationWorkplace.Services.ReservationService;
 using ReservationWorkplace.Services.WorkplaceService;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IWorkplaceService, WorkplaceService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<IEquipmentForWorkplaceService, EquipmentForWorkplaceService>();
 
 var app = builder.Build();
 

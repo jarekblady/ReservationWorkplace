@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Entities;
-using ReservationWorkplace.Models;
 using ReservationWorkplace.Repositories.EmployeeRepository;
 
 namespace ReservationWorkplace.Services.EmployeeService
@@ -17,37 +17,37 @@ namespace ReservationWorkplace.Services.EmployeeService
         }
     
 
-        public List<EmployeeViewModel> GetAllEmployee()
+        public List<EmployeeDto> GetAllEmployee()
         {
             var employees = _employeeRepository.EmployeeGetAll();
-            var result = _mapper.Map<List<EmployeeViewModel>>(employees);
+            var result = _mapper.Map<List<EmployeeDto>>(employees);
             return result;
         }
 
-        public EmployeeViewModel GetByIdEmployee(int id)
+        public EmployeeDto GetByIdEmployee(int id)
         {
             var employee = _employeeRepository.EmployeeGetById(id);
-            var result = _mapper.Map<EmployeeViewModel>(employee);
+            var result = _mapper.Map<EmployeeDto>(employee);
             return result;
         }
 
 
-        public void CreateEmployee(EmployeeViewModel model)
+        public void CreateEmployee(EmployeeDto dto)
         {
             var employee = new Employee()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName
+                FirstName = dto.FirstName,
+                LastName = dto.LastName
             };
             _employeeRepository.CreateEmployee(employee);
         }
 
-        public void UpdateEmployee(EmployeeViewModel model)
+        public void UpdateEmployee(EmployeeDto dto)
         {
             var employee = new Employee()
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName
+                FirstName = dto.FirstName,
+                LastName = dto.LastName
             };
             _employeeRepository.UpdateEmployee(employee);
         }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Entities;
-using ReservationWorkplace.Models;
 using ReservationWorkplace.Repositories.EquipmentRepository;
 
 namespace ReservationWorkplace.Services.EquipmentService
@@ -17,35 +17,35 @@ namespace ReservationWorkplace.Services.EquipmentService
         }
 
 
-        public List<EquipmentViewModel> GetAllEquipment()
+        public List<EquipmentDto> GetAllEquipment()
         {
             var equipments = _equipmentRepository.EquipmentGetAll();
-            var result = _mapper.Map<List<EquipmentViewModel>>(equipments);
+            var result = _mapper.Map<List<EquipmentDto>>(equipments);
             return result;
         }
 
-        public EquipmentViewModel GetByIdEquipment(int id)
+        public EquipmentDto GetByIdEquipment(int id)
         {
             var equipment = _equipmentRepository.EquipmentGetById(id);
-            var result = _mapper.Map<EquipmentViewModel>(equipment);
+            var result = _mapper.Map<EquipmentDto>(equipment);
             return result;
         }
 
 
-        public void CreateEquipment(EquipmentViewModel model)
+        public void CreateEquipment(EquipmentDto dto)
         {
             var equipment = new Equipment()
             {
-                Type = model.Type
+                Type = dto.Type
             };
             _equipmentRepository.CreateEquipment(equipment);
         }
 
-        public void UpdateEquipment(EquipmentViewModel model)
+        public void UpdateEquipment(EquipmentDto dto)
         {
             var equipment = new Equipment()
             {
-                Type = model.Type
+                Type = dto.Type
             };
             _equipmentRepository.UpdateEquipment(equipment); ;
         }

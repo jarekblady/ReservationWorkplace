@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Entities;
-using ReservationWorkplace.Models;
 using ReservationWorkplace.Repositories.ReservationRepository;
 
 namespace ReservationWorkplace.Services.ReservationService
@@ -17,41 +17,41 @@ namespace ReservationWorkplace.Services.ReservationService
         }
 
 
-        public List<ReservationViewModel> GetAllReservation(int employeeId)
+        public List<ReservationDto> GetAllReservation(int employeeId)
         {
             var reservations = _reservationRepository.ReservationGetAll(employeeId);
-            var result = _mapper.Map<List<ReservationViewModel>>(reservations);
+            var result = _mapper.Map<List<ReservationDto>>(reservations);
             return result;
         }
 
-        public ReservationViewModel GetByIdReservation(int employeeId, int id)
+        public ReservationDto GetByIdReservation(int employeeId, int id)
         {
             var reservation = _reservationRepository.ReservationGetById(employeeId, id);
-            var result = _mapper.Map<ReservationViewModel>(reservation);
+            var result = _mapper.Map<ReservationDto>(reservation);
             return result;
         }
 
 
-        public void CreateReservation(ReservationViewModel model)
+        public void CreateReservation(ReservationDto dto)
         {
             var reservation = new Reservation()
             {
-                EmployeeId = model.EmployeeId,
-                WorkplaceId = model.WorkplaceId,
-                TimeFrom = model.TimeFrom,
-                TimeTo = model.TimeTo
+                EmployeeId = dto.EmployeeId,
+                WorkplaceId = dto.WorkplaceId,
+                TimeFrom = dto.TimeFrom,
+                TimeTo = dto.TimeTo
             };
             _reservationRepository.CreateReservation(reservation);
         }
 
-        public void UpdateReservation(ReservationViewModel model)
+        public void UpdateReservation(ReservationDto dto)
         {
             var reservation = new Reservation()
             {
-                EmployeeId = model.EmployeeId,
-                WorkplaceId = model.WorkplaceId,
-                TimeFrom = model.TimeFrom,
-                TimeTo = model.TimeTo
+                EmployeeId = dto.EmployeeId,
+                WorkplaceId = dto.WorkplaceId,
+                TimeFrom = dto.TimeFrom,
+                TimeTo = dto.TimeTo
             };
             _reservationRepository.UpdateReservation(reservation);
         }

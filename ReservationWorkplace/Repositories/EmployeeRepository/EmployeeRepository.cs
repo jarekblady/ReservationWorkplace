@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ReservationWorkplace.Entities;
-using ReservationWorkplace.Models;
 
 namespace ReservationWorkplace.Repositories.EmployeeRepository
 {

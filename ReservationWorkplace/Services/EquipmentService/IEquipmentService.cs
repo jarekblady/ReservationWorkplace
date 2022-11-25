@@ -1,13 +1,13 @@
-﻿using ReservationWorkplace.Models;
+﻿using ReservationWorkplace.DataTransferObjects;
 
 namespace ReservationWorkplace.Services.EquipmentService
 {
     public interface IEquipmentService
     {
-        List<EquipmentViewModel> GetAllEquipment();
-        EquipmentViewModel GetByIdEquipment(int id);
-        void CreateEquipment(EquipmentViewModel model);
-        void UpdateEquipment(EquipmentViewModel model);
+        List<EquipmentDto> GetAllEquipment();
+        EquipmentDto GetByIdEquipment(int id);
+        void CreateEquipment(EquipmentDto dto);
+        void UpdateEquipment(EquipmentDto dto);
         void DeleteEquipment(int id);
     }
 }

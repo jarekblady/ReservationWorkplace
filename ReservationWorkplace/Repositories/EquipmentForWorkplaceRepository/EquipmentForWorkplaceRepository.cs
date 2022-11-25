@@ -1,5 +1,4 @@
 ﻿using ReservationWorkplace.Entities;
-using ReservationWorkplace.Models;
 
 namespace ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository
 {
