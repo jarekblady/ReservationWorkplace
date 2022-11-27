@@ -33,16 +33,16 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FirstName");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "Floor");
+            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
+            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel model)
         {
-            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FirstName");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "Floor");
+            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
+            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
 
 
             var dto = _mapper.Map<ReservationDto>(model);
@@ -54,8 +54,8 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FirstName");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "Floor");
+            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
+            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
 
             var dto = _reservationService.GetByIdReservation(id);
             var viewModel = _mapper.Map<ReservationViewModel>(dto);

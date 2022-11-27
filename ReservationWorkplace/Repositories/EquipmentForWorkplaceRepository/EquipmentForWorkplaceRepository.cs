@@ -1,4 +1,5 @@
-﻿using ReservationWorkplace.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ReservationWorkplace.Entities;
 
 namespace ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository
 {
@@ -14,12 +15,16 @@ namespace ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository
         public List<EquipmentForWorkplace> EquipmentForWorkplaceGetAll()
         {
 
-            return _context.EquipmentForWorkplaces.ToList();
+            return _context.EquipmentForWorkplaces.Include(e => e.Equipment).Include(w => w.Workplace).ToList();
+        }
+        public List<EquipmentForWorkplace> GetAllEquipmentForWorkplaceId(int workplaceId)
+        {
+            return _context.EquipmentForWorkplaces.Include(e => e.Equipment).Include(w => w.Workplace).Where(e => e.WorkplaceId == workplaceId).ToList();
         }
 
         public EquipmentForWorkplace EquipmentForWorkplaceGetById(int id)
         {
-            return _context.EquipmentForWorkplaces.FirstOrDefault(r => r.Id == id);
+            return _context.EquipmentForWorkplaces.Include(e => e.Equipment).Include(w => w.Workplace).FirstOrDefault(r => r.Id == id);
         }
 
         public void CreateEquipmentForWorkplace(EquipmentForWorkplace equipmentForWorkplace)

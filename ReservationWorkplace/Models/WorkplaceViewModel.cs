@@ -11,6 +11,8 @@ namespace ReservationWorkplace.Models
         public int Room { get; set; }
         [Required]
         public int Table { get; set; }
+
+        public string WorkplaceName { get; set; }
         public ICollection<ReservationViewModel> Reservations { get; set; }
         public ICollection<EquipmentForWorkplaceViewModel> EquipmentForWorkplaces { get; set; }
     }

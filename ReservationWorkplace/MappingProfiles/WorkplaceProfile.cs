@@ -9,7 +9,8 @@ namespace ReservationWorkplace.MappingProfiles
     {
         public WorkplaceProfile()
         {
-            CreateMap<Workplace, WorkplaceDto>();
+            CreateMap<Workplace, WorkplaceDto>()
+                .ForMember(m => m.WorkplaceName, c => c.MapFrom(s => "Floor: " + s.Floor + ", Room: " + s.Room + ", Table: " + s.Table));
             CreateMap<WorkplaceDto, Workplace>();
 
             CreateMap<WorkplaceDto, WorkplaceViewModel>();

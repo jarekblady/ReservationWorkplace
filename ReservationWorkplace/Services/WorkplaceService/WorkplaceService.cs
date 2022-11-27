@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Entities;
+using ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository;
 using ReservationWorkplace.Repositories.WorkplaceRepository;
 
 namespace ReservationWorkplace.Services.WorkplaceService
@@ -10,11 +11,13 @@ namespace ReservationWorkplace.Services.WorkplaceService
 
            
         private readonly IWorkplaceRepository _workplaceRepository;
+        private readonly IEquipmentForWorkplaceRepository _equipmentForWorkplaceRepository;
         private readonly IMapper _mapper;
 
-        public WorkplaceService(IWorkplaceRepository workplaceRepository, IMapper mapper)
+        public WorkplaceService(IWorkplaceRepository workplaceRepository, IEquipmentForWorkplaceRepository equipmentForWorkplaceRepository, IMapper mapper)
         {
             _workplaceRepository = workplaceRepository;
+            _equipmentForWorkplaceRepository = equipmentForWorkplaceRepository;
             _mapper = mapper;
         }
 
@@ -61,6 +64,52 @@ namespace ReservationWorkplace.Services.WorkplaceService
         {
             var workplace = _workplaceRepository.WorkplaceGetById(id);
             _workplaceRepository.DeleteWorkplace(workplace);
+        }
+
+
+
+        public List<EquipmentForWorkplaceDto> GetAllEquipmentForWorkplaceId(int workplaceId)
+        {
+            var equipmentForWorkplaces = _equipmentForWorkplaceRepository.GetAllEquipmentForWorkplaceId(workplaceId);
+            var result = _mapper.Map<List<EquipmentForWorkplaceDto>>(equipmentForWorkplaces);
+            return result;
+        }
+        
+        public EquipmentForWorkplaceDto GetByIdEquipmentForWorkplace(int id)
+        {
+            var equipmentForWorkplace = _equipmentForWorkplaceRepository.EquipmentForWorkplaceGetById(id);
+            var result = _mapper.Map<EquipmentForWorkplaceDto>(equipmentForWorkplace);
+            return result;
+        }
+        
+
+        public void AddEquipmentForWorkplace(EquipmentForWorkplaceDto dto)
+        {
+            var equipmentForWorkplace = new EquipmentForWorkplace()
+            {
+                Count = dto.Count,
+                WorkplaceId = dto.WorkplaceId,
+                EquipmentId = dto.EquipmentId
+            };
+            _equipmentForWorkplaceRepository.CreateEquipmentForWorkplace(equipmentForWorkplace);
+        }
+
+        public void UpdateEquipmentForWorkplace(EquipmentForWorkplaceDto dto)
+        {
+            var equipmentForWorkplace = new EquipmentForWorkplace()
+            {
+                Id = dto.Id,
+                Count = dto.Count,
+                WorkplaceId = dto.WorkplaceId,
+                EquipmentId = dto.EquipmentId
+            };
+            _equipmentForWorkplaceRepository.UpdateEquipmentForWorkplace(equipmentForWorkplace);
+        }
+
+        public void DeleteEquipmentForWorkplace(int id)
+        {
+            var equipmentForWorkplace = _equipmentForWorkplaceRepository.EquipmentForWorkplaceGetById(id);
+            _equipmentForWorkplaceRepository.DeleteEquipmentForWorkplace(equipmentForWorkplace);
         }
 
     }

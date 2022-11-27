@@ -1,37 +1,34 @@
 ﻿@model ReservationWorkplace.Models.EquipmentForWorkplaceViewModel
 
 @{
-    ViewData["Title"] = "Create EquipmentForWorkplace";
+    ViewData["Title"] = "Edit EquipmentForWorkplaceViewModel";
 }
 
 <h1>@ViewData["Title"]</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="EditEquipment">
 
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="EquipmentId" class="control-label">Equipment</label>
-                <select asp-for="EquipmentId" class="form-control" asp-items="ViewBag.Equipments">
-                    <option value="" hidden>--Select Equipment--</option>
-                </select>
+                <select asp-for="EquipmentId" class="form-control" asp-items="ViewBag.Equipments"></select>
 
             </div>
             <div class="form-group">
                 <label asp-for="WorkplaceId" class="control-label">Workplace</label>
-                <select asp-for="WorkplaceId" class="form-control" asp-items="ViewBag.Workplaces">
-                    <option value="" hidden>--Select Workplace--</option>
-                </select>
+                <select asp-for="WorkplaceId" class="form-control" asp-items="ViewBag.Workplaces"></select>
 
             </div>
             <div class="form-group">
-                <label asp-for="Count" class="control-label">Count</label>
+                <label asp-for="Count" class="control-label"></label>
                 <input asp-for="Count" class="form-control" />
 
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>

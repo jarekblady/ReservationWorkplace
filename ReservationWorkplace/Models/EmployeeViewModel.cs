@@ -9,6 +9,9 @@ namespace ReservationWorkplace.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        public string FullName { get; set; }
         public ICollection<ReservationViewModel> Reservations { get; set; }
+
+
     }
 }

@@ -9,7 +9,8 @@ namespace ReservationWorkplace.MappingProfiles
     {
         public EmployeeProfile()
         {
-            CreateMap<Employee, EmployeeDto>();
+            CreateMap<Employee, EmployeeDto>()
+                .ForMember(m => m.FullName, c => c.MapFrom(s => s.FirstName + " " + s.LastName));
             CreateMap<EmployeeDto, Employee>();
 
             CreateMap<EmployeeDto, EmployeeViewModel>();

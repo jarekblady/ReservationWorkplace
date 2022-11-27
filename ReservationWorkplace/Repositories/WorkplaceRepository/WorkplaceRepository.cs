@@ -1,4 +1,5 @@
-﻿using ReservationWorkplace.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ReservationWorkplace.Entities;
 
 namespace ReservationWorkplace.Repositories.WorkplaceRepository
 {
@@ -16,12 +17,12 @@ namespace ReservationWorkplace.Repositories.WorkplaceRepository
         public List<Workplace> WorkplaceGetAll()
         {
 
-            return _context.Workplaces.ToList();
+            return _context.Workplaces.Include(e => e.EquipmentForWorkplaces).ToList();
         }
 
         public Workplace WorkplaceGetById(int id)
         {
-            return _context.Workplaces.FirstOrDefault(w => w.Id == id);
+            return _context.Workplaces.Include(e => e.EquipmentForWorkplaces).FirstOrDefault(w => w.Id == id);
         }
 
         public void CreateWorkplace(Workplace workplace)
