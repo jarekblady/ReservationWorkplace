@@ -87,10 +87,6 @@ namespace ReservationWorkplace.Controllers
             _employeeService.DeleteEmployee(id);
             return RedirectToAction("Index");
         }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         
     }
 }

@@ -4,14 +4,16 @@
     ViewData["Title"] = "Equipments";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+</div>
 
 
-<table class="table table-bordered table-striped">
-    <thead>
+<table class="table table-bordered table-light">
+    <thead class="table-success">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                Type
             </th>
             <th>
                 <a asp-action="Create" class="btn btn-success btn-sm">Create New</a>

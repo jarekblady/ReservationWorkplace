@@ -4,10 +4,12 @@
     ViewData["Title"] = "Equipments For Workplace";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+</div>
 
-<table class="table table-bordered table-striped">
-    <thead>
+<table class="table table-bordered table-light">
+    <thead class="table-success">
         <tr>
             <th>
                 Workplace
@@ -44,5 +46,5 @@
     </tbody>
 </table>
 <div>
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary">Back to Workplaces</a>
 </div>

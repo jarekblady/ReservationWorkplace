@@ -4,10 +4,12 @@
     ViewData["Title"] = "Reservations";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1>@ViewData["Title"]</h1>
+</div>
 
-<table class="table table-bordered table-striped">
-    <thead>
+<table class="table table-bordered table-light">
+    <thead class="table-success">
         <tr>
             <th>
                 FirstName
@@ -62,6 +64,7 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                <a asp-controller="Workplace" asp-action="Details" asp-route-id="@item.WorkplaceId" class="btn btn-info btn-sm">Equipments Info</a>
             </td>
         </tr>
 }
