@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ReservationWorkplace.DataTransferObjects;
@@ -15,12 +18,14 @@ namespace ReservationWorkplace.Controllers
         private readonly IReservationService _reservationService;
         private readonly IEmployeeService _employeeService;
         private readonly IWorkplaceService _workplaceService;
-        public ReservationController(IReservationService reservationService, IEmployeeService employeeService, IWorkplaceService workplaceService, IMapper mapper)
+        private IValidator<ReservationViewModel> _validator;
+        public ReservationController(IReservationService reservationService, IEmployeeService employeeService, IWorkplaceService workplaceService, IMapper mapper, IValidator<ReservationViewModel> validator)
         {
             _reservationService = reservationService;
             _employeeService = employeeService;
             _workplaceService = workplaceService;
             _mapper = mapper;
+            _validator = validator;
         }
         public IActionResult Index()
         {
@@ -44,6 +49,14 @@ namespace ReservationWorkplace.Controllers
             ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
             ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
 
+            ValidationResult result = await _validator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(this.ModelState);
+
+                return View("Create", model);
+            }
 
             var dto = _mapper.Map<ReservationDto>(model);
             _reservationService.CreateReservation(dto);
@@ -57,6 +70,7 @@ namespace ReservationWorkplace.Controllers
             ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
             ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
 
+
             var dto = _reservationService.GetByIdReservation(id);
             var viewModel = _mapper.Map<ReservationViewModel>(dto);
 
@@ -65,6 +79,15 @@ namespace ReservationWorkplace.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(ReservationViewModel model)
         {
+            ValidationResult result = await _validator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(this.ModelState);
+
+                return View("Edit", model);
+            }
+
             var dto = _mapper.Map<ReservationDto>(model);
             _reservationService.UpdateReservation(dto);
 

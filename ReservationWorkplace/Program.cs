@@ -1,6 +1,10 @@
 
+using System.Reflection;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using ReservationWorkplace.Entities;
+using ReservationWorkplace.Models;
 using ReservationWorkplace.Repositories.EmployeeRepository;
 using ReservationWorkplace.Repositories.EquipmentForWorkplaceRepository;
 using ReservationWorkplace.Repositories.EquipmentRepository;
@@ -10,6 +14,7 @@ using ReservationWorkplace.Services.EmployeeService;
 using ReservationWorkplace.Services.EquipmentService;
 using ReservationWorkplace.Services.ReservationService;
 using ReservationWorkplace.Services.WorkplaceService;
+using ReservationWorkplace.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,18 +25,28 @@ builder.Services.AddDbContext<ReservationDbContext>(options => options.UseSqlSer
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-//Repositories
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IWorkplaceRepository, WorkplaceRepository>();
 builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 builder.Services.AddScoped<IEquipmentForWorkplaceRepository, EquipmentForWorkplaceRepository>();
 
-//Services
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IWorkplaceService, WorkplaceService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+
+builder.Services.AddFluentValidationAutoValidation(conf =>
+{
+    
+    conf.DisableDataAnnotationsValidation = true;
+});
+
+builder.Services.AddScoped<IValidator<EmployeeViewModel>, EmployeeValidator>();
+builder.Services.AddScoped<IValidator<ReservationViewModel>, ReservationValidator>();
+builder.Services.AddScoped<IValidator<WorkplaceViewModel>, WorkplaceValidator>();
+builder.Services.AddScoped<IValidator<EquipmentViewModel>, EquipmentValidator>();
+builder.Services.AddScoped<IValidator<EquipmentForWorkplaceViewModel>, EquipmentForWorkplaceValidator>();
 
 var app = builder.Build();
 

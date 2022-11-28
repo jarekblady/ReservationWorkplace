@@ -8,12 +8,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly"></div>
         <form asp-action="Create">
-
             <div class="form-group">
                 <label asp-for="Type" class="control-label">Type</label>
                 <input asp-for="Type" class="form-control" />
-
+                <span asp-validation-for="Type" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">

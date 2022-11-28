@@ -8,31 +8,31 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly"></div>
         <form asp-action="Create">
-
             <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label">Employee</label>
                 <select asp-for="EmployeeId" class="form-control" asp-items="ViewBag.Employees">
-                    <option value="" hidden>--Select Employee--</option>
+                    <option value="" hidden>Select Employee</option>
                 </select>
-
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WorkplaceId" class="control-label">Workplace</label>
                 <select asp-for="WorkplaceId" class="form-control" asp-items="ViewBag.Workplaces">
-                    <option value="" hidden>--Select Workplace--</option>
+                    <option value="" hidden>Select Workplace</option>
                 </select>
-
+                <span asp-validation-for="WorkplaceId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TimeFrom" class="control-label">Time From</label>
                 <input asp-for="TimeFrom" class="form-control" />
-
+                <span asp-validation-for="TimeFrom" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TimeTo" class="control-label">Time To</label>
                 <input asp-for="TimeTo" class="form-control" />
-
+                <span asp-validation-for="TimeTo" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">

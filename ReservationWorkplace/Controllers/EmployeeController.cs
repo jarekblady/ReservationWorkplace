@@ -1,5 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Models;
 using ReservationWorkplace.Services.EmployeeService;
@@ -10,10 +14,12 @@ namespace ReservationWorkplace.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IEmployeeService _employeeService;
-        public EmployeeController(IEmployeeService employeeService, IMapper mapper)
+        private IValidator<EmployeeViewModel> _validator;
+        public EmployeeController(IEmployeeService employeeService, IMapper mapper, IValidator<EmployeeViewModel> validator)
         {
             _employeeService = employeeService;
             _mapper = mapper;
+            _validator = validator;
         }
         public IActionResult Index()
         {
@@ -32,6 +38,14 @@ namespace ReservationWorkplace.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeViewModel model)
         {
+            ValidationResult result = await _validator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(this.ModelState);
+
+                return View("Create", model);
+            }
 
             var dto = _mapper.Map<EmployeeDto>(model);
             _employeeService.CreateEmployee(dto);
@@ -51,6 +65,14 @@ namespace ReservationWorkplace.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EmployeeViewModel model)
         {
+            ValidationResult result = await _validator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(this.ModelState);
+
+                return View("Edit", model);
+            }
 
             var dto = _mapper.Map<EmployeeDto>(model);
             _employeeService.UpdateEmployee(dto);
@@ -69,5 +91,6 @@ namespace ReservationWorkplace.Controllers
         {
             return View();
         }
+        
     }
 }

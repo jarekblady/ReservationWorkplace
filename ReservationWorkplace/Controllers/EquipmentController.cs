@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using ReservationWorkplace.DataTransferObjects;
 using ReservationWorkplace.Models;
@@ -10,10 +13,12 @@ namespace ReservationWorkplace.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IEquipmentService _equipmentService;
-        public EquipmentController(IEquipmentService equipmentService, IMapper mapper)
+        private IValidator<EquipmentViewModel> _validator;
+        public EquipmentController(IEquipmentService equipmentService, IMapper mapper, IValidator<EquipmentViewModel> validator)
         {
             _equipmentService = equipmentService;
             _mapper = mapper;
+            _validator = validator;
         }
         public IActionResult Index()
         {
@@ -32,6 +37,14 @@ namespace ReservationWorkplace.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EquipmentViewModel model)
         {
+            ValidationResult result = await _validator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(this.ModelState);
+
+                return View("Create", model);
+            }
 
             var dto = _mapper.Map<EquipmentDto>(model);
             _equipmentService.CreateEquipment(dto);
@@ -51,6 +64,14 @@ namespace ReservationWorkplace.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EquipmentViewModel model)
         {
+            ValidationResult result = await _validator.ValidateAsync(model);
+
+            if (!result.IsValid)
+            {
+                result.AddToModelState(this.ModelState);
+
+                return View("Edit", model);
+            }
 
             var dto = _mapper.Map<EquipmentDto>(model);
             _equipmentService.UpdateEquipment(dto);
