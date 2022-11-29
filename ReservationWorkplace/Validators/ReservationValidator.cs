@@ -7,18 +7,18 @@ namespace ReservationWorkplace.Validators
     {
         public ReservationValidator()
         {
-            RuleFor(x => x.EmployeeId)
+            RuleFor(x => x.Reservation.EmployeeId)
                 .NotEmpty().WithMessage("Employee is required");
 
-            RuleFor(x => x.WorkplaceId)
+            RuleFor(x => x.Reservation.WorkplaceId)
                 .NotEmpty().WithMessage("Workplace is required");
 
-            RuleFor(x => x.TimeFrom)
+            RuleFor(x => x.Reservation.TimeFrom)
                 .NotNull().WithMessage("TimeFrom is required");
 
-            RuleFor(x => x.TimeTo)
+            RuleFor(x => x.Reservation.TimeTo)
                 .NotNull().WithMessage("TimeTo is required")
-                .GreaterThan(x => x.TimeFrom).WithMessage("TimeTo must be after this TimeFrom");
+                .GreaterThan(x => x.Reservation.TimeFrom).WithMessage("TimeTo must be after this TimeFrom");
         }
     }
 }

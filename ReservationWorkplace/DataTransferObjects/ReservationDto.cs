@@ -5,11 +5,14 @@
         public int Id { get; set; }
         public DateTime TimeFrom { get; set; }
         public DateTime TimeTo { get; set; }
-
         public int EmployeeId { get; set; }
-        public EmployeeDto Employee { get; set; }
-
         public int WorkplaceId { get; set; }
-        public WorkplaceDto Workplace { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string FullName { get; set; }
+        public int Floor { get; set; }
+        public int Room { get; set; }
+        public int Table { get; set; }
+        public string WorkplaceName { get; set; }
     }
 }

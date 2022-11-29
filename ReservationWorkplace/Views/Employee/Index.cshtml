@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ReservationWorkplace.Models.EmployeeViewModel>
+﻿@model ReservationWorkplace.Models.EmployeeViewModel
 
 @{
     ViewData["Title"] = "Employees";
@@ -11,10 +11,10 @@
     <thead class="table-success">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                FirstName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                LastName
             </th>
             <th>
                 <a asp-action="Create" class="btn btn-success btn-sm">Create New</a>
@@ -22,19 +22,19 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Employees) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem  => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem  => item.LastName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> 
                 <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
             </td>
         </tr>
-}
+}       
     </tbody>
 </table>

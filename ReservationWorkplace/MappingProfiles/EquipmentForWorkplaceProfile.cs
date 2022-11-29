@@ -9,11 +9,11 @@ namespace ReservationWorkplace.MappingProfiles
     {
         public EquipmentForWorkplaceProfile()
         {
-            CreateMap<EquipmentForWorkplace, EquipmentForWorkplaceDto>();
+            CreateMap<EquipmentForWorkplace, EquipmentForWorkplaceDto>()
+                    .ForMember(d => d.Type, c => c.MapFrom(s => s.Equipment.Type))
+                    .ForMember(d => d.WorkplaceName, c => c.MapFrom(s => "Floor: " + s.Workplace.Floor + ", Room: " + s.Workplace.Room + ", Table: " + s.Workplace.Table));
             CreateMap<EquipmentForWorkplaceDto, EquipmentForWorkplace>();
 
-            CreateMap<EquipmentForWorkplaceDto, EquipmentForWorkplaceViewModel>();
-            CreateMap<EquipmentForWorkplaceViewModel, EquipmentForWorkplaceDto>();
         }
     }
 }

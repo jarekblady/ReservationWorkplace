@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -14,23 +13,22 @@ namespace ReservationWorkplace.Controllers
 {
     public class ReservationController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IReservationService _reservationService;
         private readonly IEmployeeService _employeeService;
         private readonly IWorkplaceService _workplaceService;
+
         private IValidator<ReservationViewModel> _validator;
-        public ReservationController(IReservationService reservationService, IEmployeeService employeeService, IWorkplaceService workplaceService, IMapper mapper, IValidator<ReservationViewModel> validator)
+        public ReservationController(IReservationService reservationService, IEmployeeService employeeService, IWorkplaceService workplaceService, IValidator<ReservationViewModel> validator)
         {
             _reservationService = reservationService;
-            _employeeService = employeeService;
             _workplaceService = workplaceService;
-            _mapper = mapper;
+            _employeeService = employeeService;
             _validator = validator;
         }
         public IActionResult Index()
         {
-            var dto = _reservationService.GetAllReservation();
-            var viewModel = _mapper.Map<List<ReservationViewModel>>(dto);
+            var viewModel = new ReservationViewModel();
+            viewModel.Reservations = _reservationService.GetAllReservation();
 
             return View(viewModel);
         }
@@ -38,16 +36,24 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
+            var employees = new EmployeeViewModel();
+            employees.Employees = _employeeService.GetAllEmployee();
+            var workplaces = new WorkplaceViewModel();
+            workplaces.Workplaces = _workplaceService.GetAllWorkplace();
+            ViewBag.Employees = new SelectList(employees.Employees, "Id", "FullName");
+            ViewBag.Workplaces = new SelectList(workplaces.Workplaces, "Id", "WorkplaceName");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(ReservationViewModel model)
         {
-            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
+            var employees = new EmployeeViewModel();
+            employees.Employees = _employeeService.GetAllEmployee();
+            var workplaces = new WorkplaceViewModel();
+            workplaces.Workplaces = _workplaceService.GetAllWorkplace();
+            ViewBag.Employees = new SelectList(employees.Employees, "Id", "FullName");
+            ViewBag.Workplaces = new SelectList(workplaces.Workplaces, "Id", "WorkplaceName");
 
             ValidationResult result = await _validator.ValidateAsync(model);
 
@@ -58,7 +64,13 @@ namespace ReservationWorkplace.Controllers
                 return View("Create", model);
             }
 
-            var dto = _mapper.Map<ReservationDto>(model);
+            var dto = new ReservationDto()
+            {
+                TimeFrom = model.Reservation.TimeFrom,
+                TimeTo = model.Reservation.TimeTo,
+                EmployeeId = model.Reservation.EmployeeId,
+                WorkplaceId = model.Reservation.WorkplaceId,
+            };
             _reservationService.CreateReservation(dto);
 
             return RedirectToAction("Index");
@@ -67,12 +79,16 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            ViewBag.Employees = new SelectList(_employeeService.GetAllEmployee(), "Id", "FullName");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
 
+            var employees = new EmployeeViewModel();
+            employees.Employees = _employeeService.GetAllEmployee();
+            var workplaces = new WorkplaceViewModel();
+            workplaces.Workplaces = _workplaceService.GetAllWorkplace();
+            ViewBag.Employees = new SelectList(employees.Employees, "Id", "FullName");
+            ViewBag.Workplaces = new SelectList(workplaces.Workplaces, "Id", "WorkplaceName");
 
-            var dto = _reservationService.GetByIdReservation(id);
-            var viewModel = _mapper.Map<ReservationViewModel>(dto);
+            var viewModel = new ReservationViewModel();
+            viewModel.Reservation = _reservationService.GetByIdReservation(id);
 
             return View(viewModel);
         }
@@ -88,11 +104,18 @@ namespace ReservationWorkplace.Controllers
                 return View("Edit", model);
             }
 
-            var dto = _mapper.Map<ReservationDto>(model);
+            var dto = new ReservationDto()
+            {
+                Id = model.Reservation.Id,
+                TimeFrom = model.Reservation.TimeFrom,
+                TimeTo = model.Reservation.TimeTo,
+                EmployeeId = model.Reservation.EmployeeId,
+                WorkplaceId = model.Reservation.WorkplaceId,
+            };
             _reservationService.UpdateReservation(dto);
 
             return RedirectToAction("Index");
- 
+
         }
 
         [HttpGet]

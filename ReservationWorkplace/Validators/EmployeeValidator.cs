@@ -7,10 +7,10 @@ namespace ReservationWorkplace.Validators
     {
         public EmployeeValidator()
         {
-            RuleFor(x => x.FirstName)
+            RuleFor(x => x.Employee.FirstName)
                 .NotEmpty().WithMessage("First Name is required");
 
-            RuleFor(x => x.LastName)
+            RuleFor(x => x.Employee.LastName)
                 .NotEmpty().WithMessage("Last Name is required");
         }
     }

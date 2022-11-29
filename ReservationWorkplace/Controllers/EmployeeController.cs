@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -12,19 +11,17 @@ namespace ReservationWorkplace.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IEmployeeService _employeeService;
         private IValidator<EmployeeViewModel> _validator;
-        public EmployeeController(IEmployeeService employeeService, IMapper mapper, IValidator<EmployeeViewModel> validator)
+        public EmployeeController(IEmployeeService employeeService, IValidator<EmployeeViewModel> validator)
         {
             _employeeService = employeeService;
-            _mapper = mapper;
             _validator = validator;
         }
         public IActionResult Index()
         {
-            var dto = _employeeService.GetAllEmployee();
-            var viewModel = _mapper.Map<List<EmployeeViewModel>>(dto);
+            var viewModel = new EmployeeViewModel();
+            viewModel.Employees = _employeeService.GetAllEmployee();
 
             return View(viewModel);
         }
@@ -46,8 +43,12 @@ namespace ReservationWorkplace.Controllers
 
                 return View("Create", model);
             }
+            var dto = new EmployeeDto()
+            {
+                FirstName = model.Employee.FirstName,
+                LastName = model.Employee.LastName,
+            };
 
-            var dto = _mapper.Map<EmployeeDto>(model);
             _employeeService.CreateEmployee(dto);
 
             return RedirectToAction("Index");
@@ -57,8 +58,8 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var dto = _employeeService.GetByIdEmployee(id);
-            var viewModel = _mapper.Map<EmployeeViewModel>(dto);
+            var viewModel = new EmployeeViewModel();
+            viewModel.Employee = _employeeService.GetByIdEmployee(id);
 
             return View(viewModel);
         }
@@ -74,7 +75,12 @@ namespace ReservationWorkplace.Controllers
                 return View("Edit", model);
             }
 
-            var dto = _mapper.Map<EmployeeDto>(model);
+            var dto = new EmployeeDto()
+            {
+                Id = model.Employee.Id,
+                FirstName = model.Employee.FirstName,
+                LastName = model.Employee.LastName,
+            };
             _employeeService.UpdateEmployee(dto);
 
             return RedirectToAction("Index");
@@ -87,6 +93,6 @@ namespace ReservationWorkplace.Controllers
             _employeeService.DeleteEmployee(id);
             return RedirectToAction("Index");
         }
-        
+
     }
 }

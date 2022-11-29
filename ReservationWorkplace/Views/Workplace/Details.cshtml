@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ReservationWorkplace.Models.EquipmentForWorkplaceViewModel>
+﻿@model ReservationWorkplace.Models.EquipmentForWorkplaceViewModel
 
 @{
     ViewData["Title"] = "Equipments For Workplace";
@@ -26,13 +26,13 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.EquipmentForWorkplaces) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Workplace.WorkplaceName)
+                @Html.DisplayFor(modelItem => item.WorkplaceName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Equipment.Type)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Count)

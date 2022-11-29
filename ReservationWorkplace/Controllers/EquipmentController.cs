@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -11,19 +10,18 @@ namespace ReservationWorkplace.Controllers
 {
     public class EquipmentController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IEquipmentService _equipmentService;
         private IValidator<EquipmentViewModel> _validator;
-        public EquipmentController(IEquipmentService equipmentService, IMapper mapper, IValidator<EquipmentViewModel> validator)
+        public EquipmentController(IEquipmentService equipmentService, IValidator<EquipmentViewModel> validator)
         {
             _equipmentService = equipmentService;
-            _mapper = mapper;
             _validator = validator;
         }
         public IActionResult Index()
         {
-            var dto = _equipmentService.GetAllEquipment();
-            var viewModel = _mapper.Map<List<EquipmentViewModel>>(dto);
+            var viewModel = new EquipmentViewModel();
+
+            viewModel.Equipments = _equipmentService.GetAllEquipment();
 
             return View(viewModel);
         }
@@ -46,7 +44,11 @@ namespace ReservationWorkplace.Controllers
                 return View("Create", model);
             }
 
-            var dto = _mapper.Map<EquipmentDto>(model);
+            var dto = new EquipmentDto
+            {
+                Type = model.Equipment.Type,
+            };
+
             _equipmentService.CreateEquipment(dto);
 
             return RedirectToAction("Index");
@@ -56,8 +58,8 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var dto = _equipmentService.GetByIdEquipment(id);
-            var viewModel = _mapper.Map<EquipmentViewModel>(dto);
+            var viewModel = new EquipmentViewModel();
+            viewModel.Equipment = _equipmentService.GetByIdEquipment(id);
 
             return View(viewModel);
         }
@@ -73,7 +75,11 @@ namespace ReservationWorkplace.Controllers
                 return View("Edit", model);
             }
 
-            var dto = _mapper.Map<EquipmentDto>(model);
+            var dto = new EquipmentDto
+            {
+                Id = model.Equipment.Id,
+                Type = model.Equipment.Type,
+            };
             _equipmentService.UpdateEquipment(dto);
 
             return RedirectToAction("Index");
@@ -87,4 +93,3 @@ namespace ReservationWorkplace.Controllers
         }
     }
 }
-

@@ -7,13 +7,13 @@ namespace ReservationWorkplace.Validators
     {
         public EquipmentForWorkplaceValidator()
         {
-            RuleFor(x => x.WorkplaceId)
+            RuleFor(x => x.EquipmentForWorkplace.WorkplaceId)
                 .NotEmpty().WithMessage("Workplace is required");
 
-            RuleFor(x => x.EquipmentId)
+            RuleFor(x => x.EquipmentForWorkplace.EquipmentId)
                 .NotEmpty().WithMessage("Equipment is required");
 
-            RuleFor(x => x.Count)
+            RuleFor(x => x.EquipmentForWorkplace.Count)
                 .NotNull().WithMessage("Count is required");
         }
     }

@@ -74,7 +74,13 @@ namespace ReservationWorkplace.Services.WorkplaceService
             var result = _mapper.Map<List<EquipmentForWorkplaceDto>>(equipmentForWorkplaces);
             return result;
         }
-        
+
+        public List<EquipmentForWorkplaceDto> GetAllEquipmentForWorkplace()
+        {
+            var equipmentForWorkplaces = _equipmentForWorkplaceRepository.EquipmentForWorkplaceGetAll();
+            var result = _mapper.Map<List<EquipmentForWorkplaceDto>>(equipmentForWorkplaces);
+            return result;
+        }
         public EquipmentForWorkplaceDto GetByIdEquipmentForWorkplace(int id)
         {
             var equipmentForWorkplace = _equipmentForWorkplaceRepository.EquipmentForWorkplaceGetById(id);

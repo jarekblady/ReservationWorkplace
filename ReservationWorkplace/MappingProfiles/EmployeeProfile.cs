@@ -13,8 +13,6 @@ namespace ReservationWorkplace.MappingProfiles
                 .ForMember(m => m.FullName, c => c.MapFrom(s => s.FirstName + " " + s.LastName));
             CreateMap<EmployeeDto, Employee>();
 
-            CreateMap<EmployeeDto, EmployeeViewModel>();
-            CreateMap<EmployeeViewModel, EmployeeDto>();
         }
     }
 }

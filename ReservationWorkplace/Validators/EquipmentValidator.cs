@@ -7,7 +7,7 @@ namespace ReservationWorkplace.Validators
     {
         public EquipmentValidator()
         {
-            RuleFor(x => x.Type).NotEmpty().WithMessage("Equipment type is required");
+            RuleFor(x => x.Equipment.Type).NotEmpty().WithMessage("Equipment type is required");
         }
     }
 }

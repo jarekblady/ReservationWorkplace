@@ -13,23 +13,21 @@ namespace ReservationWorkplace.Controllers
 {
     public class WorkplaceController : Controller
     {
-        private readonly IMapper _mapper;
         private readonly IWorkplaceService _workplaceService;
         private readonly IEquipmentService _equipmentService;
         private IValidator<WorkplaceViewModel> _validator;
         private IValidator<EquipmentForWorkplaceViewModel> _equipmentForWorkplaceValidator;
-        public WorkplaceController(IWorkplaceService workplaceService, IEquipmentService equipmentService, IMapper mapper, IValidator<WorkplaceViewModel> validator, IValidator<EquipmentForWorkplaceViewModel> equipmentForWorkplaceValidator)
+        public WorkplaceController(IWorkplaceService workplaceService, IEquipmentService equipmentService, IValidator<WorkplaceViewModel> validator, IValidator<EquipmentForWorkplaceViewModel> equipmentForWorkplaceValidator)
         {
             _workplaceService = workplaceService;
             _equipmentService = equipmentService;
-            _mapper = mapper;
             _validator = validator;
             _equipmentForWorkplaceValidator = equipmentForWorkplaceValidator;
         }
         public IActionResult Index()
         {
-            var dto = _workplaceService.GetAllWorkplace();
-            var viewModel = _mapper.Map<List<WorkplaceViewModel>>(dto);
+            var viewModel = new WorkplaceViewModel();
+            viewModel.Workplaces = _workplaceService.GetAllWorkplace();
 
             return View(viewModel);
         }
@@ -52,7 +50,12 @@ namespace ReservationWorkplace.Controllers
                 return View("Create", model);
             }
 
-            var dto = _mapper.Map<WorkplaceDto>(model);
+            var dto = new WorkplaceDto()
+            {
+                Floor = model.Workplace.Floor,
+                Room = model.Workplace.Room,
+                Table = model.Workplace.Table,
+            };
             _workplaceService.CreateWorkplace(dto);
 
             return RedirectToAction("Index");
@@ -61,8 +64,8 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var dto = _workplaceService.GetByIdWorkplace(id);
-            var viewModel = _mapper.Map<WorkplaceViewModel>(dto);
+            var viewModel = new WorkplaceViewModel();
+            viewModel.Workplace = _workplaceService.GetByIdWorkplace(id);
 
             return View(viewModel);
         }
@@ -78,10 +81,16 @@ namespace ReservationWorkplace.Controllers
                 return View("Edit", model);
             }
 
-            var dto = _mapper.Map<WorkplaceDto>(model);
+            var dto = new WorkplaceDto()
+            {
+                Id = model.Workplace.Id,
+                Floor = model.Workplace.Floor,
+                Room = model.Workplace.Room,
+                Table = model.Workplace.Table,
+            };
             _workplaceService.UpdateWorkplace(dto);
 
-            return RedirectToAction("Index");;
+            return RedirectToAction("Index"); ;
         }
 
         [HttpGet]
@@ -93,8 +102,8 @@ namespace ReservationWorkplace.Controllers
 
         public IActionResult Details(int id)
         {
-            var dto = _workplaceService.GetAllEquipmentForWorkplaceId(id);
-            var viewModel = _mapper.Map<List<EquipmentForWorkplaceViewModel>>(dto);
+            var viewModel = new EquipmentForWorkplaceViewModel();
+            viewModel.EquipmentForWorkplaces = _workplaceService.GetAllEquipmentForWorkplaceId(id);
 
             return View(viewModel);
         }
@@ -102,16 +111,25 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult AddEquipment()
         {
-            ViewBag.Equipments = new SelectList(_equipmentService.GetAllEquipment(), "Id", "Type");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
+            var equipments = new EquipmentViewModel();
+            equipments.Equipments = _equipmentService.GetAllEquipment();
+            var workplaces = new WorkplaceViewModel();
+            workplaces.Workplaces = _workplaceService.GetAllWorkplace();
+            ViewBag.Equipments = new SelectList(equipments.Equipments, "Id", "Type");
+            ViewBag.Workplaces = new SelectList(workplaces.Workplaces, "Id", "WorkplaceName");
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> AddEquipment(EquipmentForWorkplaceViewModel model)
         {
-            ViewBag.Equipments = new SelectList(_equipmentService.GetAllEquipment(), "Id", "Type");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
+            var equipments = new EquipmentViewModel();
+            equipments.Equipments = _equipmentService.GetAllEquipment();
+            var workplaces = new WorkplaceViewModel();
+            workplaces.Workplaces = _workplaceService.GetAllWorkplace();
+            ViewBag.Equipments = new SelectList(equipments.Equipments, "Id", "Type");
+            ViewBag.Workplaces = new SelectList(workplaces.Workplaces, "Id", "WorkplaceName");
 
             ValidationResult result = await _equipmentForWorkplaceValidator.ValidateAsync(model);
 
@@ -122,7 +140,12 @@ namespace ReservationWorkplace.Controllers
                 return View("AddEquipment", model);
             }
 
-            var dto = _mapper.Map<EquipmentForWorkplaceDto>(model);
+            var dto = new EquipmentForWorkplaceDto()
+            {
+                Count = model.EquipmentForWorkplace.Count,
+                WorkplaceId = model.EquipmentForWorkplace.WorkplaceId,
+                EquipmentId = model.EquipmentForWorkplace.EquipmentId,
+            };
             _workplaceService.AddEquipmentForWorkplace(dto);
 
             return RedirectToAction("Index");
@@ -131,11 +154,15 @@ namespace ReservationWorkplace.Controllers
         [HttpGet]
         public IActionResult EditEquipment(int id)
         {
-            ViewBag.Equipments = new SelectList(_equipmentService.GetAllEquipment(), "Id", "Type");
-            ViewBag.Workplaces = new SelectList(_workplaceService.GetAllWorkplace(), "Id", "WorkplaceName");
+            var equipments = new EquipmentViewModel();
+            equipments.Equipments = _equipmentService.GetAllEquipment();
+            var workplaces = new WorkplaceViewModel();
+            workplaces.Workplaces = _workplaceService.GetAllWorkplace();
+            ViewBag.Equipments = new SelectList(equipments.Equipments, "Id", "Type");
+            ViewBag.Workplaces = new SelectList(workplaces.Workplaces, "Id", "WorkplaceName");
 
-            var dto = _workplaceService.GetByIdEquipmentForWorkplace(id);
-            var viewModel = _mapper.Map<EquipmentForWorkplaceViewModel>(dto);
+            var viewModel = new EquipmentForWorkplaceViewModel();
+             viewModel.EquipmentForWorkplace =   _workplaceService.GetByIdEquipmentForWorkplace(id);
 
             return View(viewModel);
         }
@@ -151,7 +178,13 @@ namespace ReservationWorkplace.Controllers
                 return View("EditEquipment", model);
             }
 
-            var dto = _mapper.Map<EquipmentForWorkplaceDto>(model);
+            var dto = new EquipmentForWorkplaceDto()
+            {
+                Id = model.EquipmentForWorkplace.Id,
+                Count = model.EquipmentForWorkplace.Count,
+                WorkplaceId = model.EquipmentForWorkplace.WorkplaceId,
+                EquipmentId = model.EquipmentForWorkplace.EquipmentId,
+            };
             _workplaceService.UpdateEquipmentForWorkplace(dto);
 
             return RedirectToAction("Index");
@@ -165,5 +198,7 @@ namespace ReservationWorkplace.Controllers
         }
     }
 }
+
+
 
 

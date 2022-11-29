@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ReservationWorkplace.DataTransferObjects;
 
 namespace ReservationWorkplace.Models
 {
     public class EquipmentViewModel
     {
-        public int Id { get; set; }
-        public string Type { get; set; }
-        public ICollection<EquipmentForWorkplaceViewModel> EquipmentForWorkplaces { get; set; }
+        public List<EquipmentDto> Equipments { get; set; }
+        public EquipmentDto Equipment { get; set; }
     }
 }

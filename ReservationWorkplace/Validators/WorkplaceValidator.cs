@@ -7,13 +7,13 @@ namespace ReservationWorkplace.Validators
     {
         public WorkplaceValidator()
         {
-            RuleFor(x => x.Floor)
+            RuleFor(x => x.Workplace.Floor)
                 .NotNull().WithMessage("Floor is required");
 
-            RuleFor(x => x.Room)
+            RuleFor(x => x.Workplace.Room)
                 .NotNull().WithMessage("Room is required");
 
-            RuleFor(x => x.Table)
+            RuleFor(x => x.Workplace.Table)
                 .NotNull().WithMessage("Table is required");
         }
     }

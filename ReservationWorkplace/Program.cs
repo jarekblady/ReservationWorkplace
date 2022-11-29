@@ -36,11 +36,11 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IWorkplaceService, WorkplaceService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 
-builder.Services.AddFluentValidationAutoValidation(conf =>
+builder.Services.AddFluentValidationAutoValidation(/*conf =>
 {
     
     conf.DisableDataAnnotationsValidation = true;
-});
+}*/);
 
 builder.Services.AddScoped<IValidator<EmployeeViewModel>, EmployeeValidator>();
 builder.Services.AddScoped<IValidator<ReservationViewModel>, ReservationValidator>();

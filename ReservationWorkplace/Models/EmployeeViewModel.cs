@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ReservationWorkplace.DataTransferObjects;
 
 namespace ReservationWorkplace.Models
 {
     public class EmployeeViewModel
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string FullName { get; set; }
-        public ICollection<ReservationViewModel> Reservations { get; set; }
+        public List<EmployeeDto> Employees { get; set; }
+        public EmployeeDto Employee { get; set; }
 
 
     }

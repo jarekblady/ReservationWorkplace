@@ -10,6 +10,7 @@ namespace ReservationWorkplace.Services.WorkplaceService
         void UpdateWorkplace(WorkplaceDto dto);
         void DeleteWorkplace(int id);
         List<EquipmentForWorkplaceDto> GetAllEquipmentForWorkplaceId(int workplaceId);
+        List<EquipmentForWorkplaceDto> GetAllEquipmentForWorkplace();
         EquipmentForWorkplaceDto GetByIdEquipmentForWorkplace(int id);
         void AddEquipmentForWorkplace(EquipmentForWorkplaceDto dto);
         void UpdateEquipmentForWorkplace(EquipmentForWorkplaceDto dto);

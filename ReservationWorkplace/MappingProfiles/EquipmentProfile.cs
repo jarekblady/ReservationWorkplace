@@ -12,8 +12,6 @@ namespace ReservationWorkplace.MappingProfiles
             CreateMap<Equipment, EquipmentDto>();
             CreateMap<EquipmentDto, Equipment>();
 
-            CreateMap<EquipmentDto, EquipmentViewModel>();
-            CreateMap<EquipmentViewModel, EquipmentDto>();
         }
     }
 }

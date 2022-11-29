@@ -12,9 +12,6 @@ namespace ReservationWorkplace.MappingProfiles
             CreateMap<Workplace, WorkplaceDto>()
                 .ForMember(m => m.WorkplaceName, c => c.MapFrom(s => "Floor: " + s.Floor + ", Room: " + s.Room + ", Table: " + s.Table));
             CreateMap<WorkplaceDto, Workplace>();
-
-            CreateMap<WorkplaceDto, WorkplaceViewModel>();
-            CreateMap<WorkplaceViewModel, WorkplaceDto>();
         }
     }
 }

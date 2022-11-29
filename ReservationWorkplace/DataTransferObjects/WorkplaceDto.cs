@@ -7,7 +7,5 @@
         public int Room { get; set; }
         public int Table { get; set; }
         public string WorkplaceName { get; set; }
-        public ICollection<ReservationDto> Reservations { get; set; }
-        public ICollection<EquipmentForWorkplaceDto> EquipmentForWorkplaces { get; set; }
     }
 }
